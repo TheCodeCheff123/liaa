@@ -1,6 +1,6 @@
 import { lazy, Suspense } from 'react';
 import { motion } from 'framer-motion';
-import { SOCIAL_LINKS } from '../../context/CartContext';
+import { WA_LINKS } from '../../context/CartContext';
 import heroCupcake from '../../../assets/designs/pngegg-341 1.png';
 import Sprinkles from './Sprinkles';
 
@@ -79,7 +79,7 @@ export default function HeroSection() {
               <i className="ri-arrow-right-line" />
             </button>
             <a
-              href={SOCIAL_LINKS.whatsapp}
+              href={WA_LINKS.heroOrder}
               target="_blank"
               rel="noopener noreferrer"
               className="w-full sm:w-auto flex items-center justify-center gap-2 border-2 border-white/30 text-white font-semibold px-6 py-3 rounded-full hover:border-white/60 transition-colors text-sm"

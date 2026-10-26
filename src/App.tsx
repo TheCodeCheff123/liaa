@@ -1,5 +1,5 @@
 import { useState, useEffect, lazy, Suspense } from 'react';
-import { CartProvider, SOCIAL_LINKS } from './context/CartContext';
+import { CartProvider, WA_LINKS } from './context/CartContext';
 import Header from './components/layout/Header';
 import HeroSection from './components/sections/HeroSection';
 import Footer from './components/layout/Footer';
@@ -76,7 +76,7 @@ export default function App() {
 
         {/* ── Floating WhatsApp button ──────────────────────────────────────── */}
         <a
-          href={SOCIAL_LINKS.whatsapp}
+          href={WA_LINKS.general}
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Chat with Liaa on WhatsApp"

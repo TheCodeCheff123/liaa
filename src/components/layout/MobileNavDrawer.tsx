@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { SOCIAL_LINKS } from '../../context/CartContext';
+import { SOCIAL_LINKS, WA_LINKS } from '../../context/CartContext';
 
 const NAV_LINKS = [
   { label: 'Home', href: '#top' },
@@ -86,7 +86,7 @@ export default function MobileNavDrawer({ isOpen, onClose }: MobileNavDrawerProp
           <a href={SOCIAL_LINKS.tiktok} target="_blank" rel="noopener noreferrer" aria-label="TikTok">
             <i className="ri-tiktok-line text-xl text-white/60 hover:text-[#F5A623] transition-colors" />
           </a>
-          <a href={SOCIAL_LINKS.whatsapp} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+          <a href={WA_LINKS.footer} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
             <i className="ri-whatsapp-line text-xl text-white/60 hover:text-[#F5A623] transition-colors" />
           </a>
         </div>

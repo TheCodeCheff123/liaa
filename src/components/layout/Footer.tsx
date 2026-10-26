@@ -1,4 +1,4 @@
-import { SOCIAL_LINKS } from '../../context/CartContext';
+import { SOCIAL_LINKS, WA_LINKS } from '../../context/CartContext';
 import logoWhite from '../../../assets/designs/Logo white.png';
 
 export default function Footer() {
@@ -27,7 +27,7 @@ export default function Footer() {
               <i className="ri-tiktok-line text-base" />
               TikTok: @liaa_events
             </a>
-            <a href={SOCIAL_LINKS.whatsapp} target="_blank" rel="noopener noreferrer"
+            <a href={WA_LINKS.footer} target="_blank" rel="noopener noreferrer"
                className="flex items-center gap-2 hover:text-[#F5A623] transition-colors">
               <i className="ri-whatsapp-line text-base" />
               WhatsApp: 09137164903

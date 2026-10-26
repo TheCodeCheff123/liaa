@@ -1,4 +1,4 @@
-import { SOCIAL_LINKS } from '../../context/CartContext';
+import { WA_LINKS } from '../../context/CartContext';
 import contactBg from '../../../assets/designs/contact-section.png';
 
 export default function ContactSection() {
@@ -32,7 +32,7 @@ export default function ContactSection() {
               delivery options.
             </p>
             <a
-              href={SOCIAL_LINKS.whatsapp}
+              href={WA_LINKS.contact}
               target="_blank"
               rel="noopener noreferrer"
               className="mt-2 flex items-center gap-2 bg-[#F5A623] text-[#3B1A0E] font-bold px-7 py-3 rounded-full hover:bg-amber-400 transition-colors text-sm"

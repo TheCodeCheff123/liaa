@@ -12,13 +12,43 @@ import {
 
 const STORAGE_KEY = 'liaa_cart';
 const WHATSAPP_NUMBER = '2349137164903';
+const WA_BASE = `https://wa.me/${WHATSAPP_NUMBER}`;
+
+function waLink(text: string) {
+  return `${WA_BASE}?text=${encodeURIComponent(text)}`;
+}
 
 // ─── Socials ─────────────────────────────────────────────────────────────────
 
 export const SOCIAL_LINKS = {
-  whatsapp: `https://wa.me/${WHATSAPP_NUMBER}`,
+  whatsapp: WA_BASE,
   instagram: 'https://www.instagram.com/liaacrea/',
   tiktok: 'https://www.tiktok.com/@liaa_events',
+} as const;
+
+// ─── Pre-filled WhatsApp links per context ────────────────────────────────────
+
+export const WA_LINKS = {
+  /** Floating button — general enquiry */
+  general: waLink(
+    "Hi Liaa! 🎂 I'd like to make a cake enquiry. My name is..."
+  ),
+  /** Hero CTA — view menu / order */
+  heroOrder: waLink(
+    "Hi Liaa! 🎂 I just saw your menu and I'd like to place an order. My name is..."
+  ),
+  /** Header "Order Via WhatsApp" button */
+  headerOrder: waLink(
+    "Hi Liaa! 🎂 I'd like to order a cake. My name is..."
+  ),
+  /** Contact section — custom date & design */
+  contact: waLink(
+    "Hi Liaa! 🎂 I'd like to discuss a custom cake. My name is...\nDate needed:\nSize/Design idea:"
+  ),
+  /** Footer / mobile drawer — general reach-out */
+  footer: waLink(
+    "Hi Liaa! 🎂 I'd like to get in touch. My name is..."
+  ),
 } as const;
 
 // ─── Types ───────────────────────────────────────────────────────────────────
@@ -183,7 +213,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       .join('\n');
 
     const message = [
-      `Hi Liaa! 🎂 I'd like to place an order.`,
+      `Hi Liaa! I'd like to place an order.`,
       ``,
       `*Customer Details*`,
       `Name: ${name}`,

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useCart, SOCIAL_LINKS } from '../../context/CartContext';
+import { useCart, SOCIAL_LINKS, WA_LINKS } from '../../context/CartContext';
 import logoNormal from '../../../assets/designs/Logo normal.png';
 import MobileNavDrawer from './MobileNavDrawer';
 
@@ -37,7 +37,7 @@ export default function Header() {
           <a href={SOCIAL_LINKS.tiktok} target="_blank" rel="noopener noreferrer" aria-label="TikTok">
             <i className="ri-tiktok-fill text-base text-[#3B1A0E] hover:text-[#F5A623] transition-colors" />
           </a>
-          <a href={SOCIAL_LINKS.whatsapp} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+          <a href={WA_LINKS.footer} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
             <i className="ri-whatsapp-fill text-base text-[#3B1A0E] hover:text-[#F5A623] transition-colors" />
           </a>
         </div>
@@ -85,7 +85,7 @@ export default function Header() {
 
             {/* Order CTA — desktop only */}
             <a
-              href={SOCIAL_LINKS.whatsapp}
+              href={WA_LINKS.headerOrder}
               target="_blank"
               rel="noopener noreferrer"
               className="hidden md:flex items-center gap-2 bg-[#F5A623] text-[#3B1A0E] font-bold text-sm px-6 py-3 rounded-full hover:bg-amber-400 active:scale-95 transition-all duration-150"
