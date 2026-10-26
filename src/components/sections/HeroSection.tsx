@@ -66,14 +66,14 @@ export default function HeroSection() {
             </span>
           </motion.h1>
 
-          {/* CTAs — spread far apart so they don't overlap the cake */}
+          {/* CTAs — vertical stack on mobile, side-by-side on sm+ */}
           <motion.div
             variants={fadeUp} initial="hidden" animate="show" custom={2}
-            className="w-full flex items-center justify-between mt-6 px-2 sm:px-8 gap-4"
+            className="w-full flex flex-col sm:flex-row items-center sm:justify-between mt-6 px-2 sm:px-8 gap-3"
           >
             <button
               onClick={scrollToMenu}
-              className="flex items-center gap-2 bg-[#F5A623] text-[#3B1A0E] font-bold px-6 py-3 rounded-full hover:bg-amber-400 transition-colors text-sm whitespace-nowrap"
+              className="w-full sm:w-auto flex items-center justify-center gap-2 bg-[#F5A623] text-[#3B1A0E] font-bold px-6 py-3 rounded-full hover:bg-amber-400 transition-colors text-sm"
             >
               View the menu
               <i className="ri-arrow-right-line" />
@@ -82,7 +82,7 @@ export default function HeroSection() {
               href={SOCIAL_LINKS.whatsapp}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 border-2 border-white/30 text-white font-semibold px-6 py-3 rounded-full hover:border-white/60 transition-colors text-sm whitespace-nowrap"
+              className="w-full sm:w-auto flex items-center justify-center gap-2 border-2 border-white/30 text-white font-semibold px-6 py-3 rounded-full hover:border-white/60 transition-colors text-sm"
             >
               <i className="ri-whatsapp-line" />
               Order Via WhatsApp

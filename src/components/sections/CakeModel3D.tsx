@@ -114,27 +114,28 @@ function useInteraction() {
 }
 
 // ─── 3D scene ─────────────────────────────────────────────────────────────────
-function CakeScene({ interaction }: { interaction: React.MutableRefObject<InteractionState> }) {
+function CakeScene({
+  interaction,
+  onReady,
+}: {
+  interaction: React.MutableRefObject<InteractionState>;
+  onReady: () => void;
+}) {
   const { scene } = useGLTF(MODEL_URL) as { scene: THREE.Group };
-  const groupRef   = useRef<THREE.Group>(null);
+  const groupRef    = useRef<THREE.Group>(null);
   const { viewport, camera, size } = useThree();
+  const firedReady  = useRef(false);
 
-  // Derived once per render — never touch desktop values
   const isMobile = size.width < 640;
-
-  // ── Desktop: original size (untouched) ───────────────────────────────────
-  // ── Mobile:  pulled back camera + smaller scale + lower Y
-  const DESKTOP = { camZ: 4.2, scale: 0.34, baseY: -0.12 };
-  const MOBILE  = { camZ: 7.2, scale: 0.26, baseY: -0.65 };
+  const DESKTOP  = { camZ: 4.2, scale: 0.34, baseY: -0.12 };
+  const MOBILE   = { camZ: 7.2, scale: 0.26, baseY: -0.65 };
   const cfg = isMobile ? MOBILE : DESKTOP;
 
-  // Apply camera-z inside useFrame (safe in R3F — avoids useEffect/stale ref issues)
   const appliedCamZ = useRef(cfg.camZ);
   useFrame(() => {
     if (!groupRef.current) return;
     const s = interaction.current;
 
-    // Update camera z if breakpoint changed (e.g. DevTools resize)
     if (Math.abs(camera.position.z - cfg.camZ) > 0.01) {
       camera.position.z = cfg.camZ;
       appliedCamZ.current = cfg.camZ;
@@ -151,6 +152,12 @@ function CakeScene({ interaction }: { interaction: React.MutableRefObject<Intera
     }
 
     groupRef.current.position.y = cfg.baseY + Math.sin(Date.now() * 0.001) * 0.03;
+
+    // Fire onReady after the scene has rendered at least one frame
+    if (!firedReady.current) {
+      firedReady.current = true;
+      onReady();
+    }
   });
 
   return (
@@ -170,10 +177,13 @@ export default function CakeModel3D({ fallback }: { fallback: ReactNode }) {
   return (
     <ModelErrorBoundary fallback={<div className="w-full h-full flex items-end justify-center">{fallback}</div>}>
       <div className="relative w-full h-full" style={{ cursor: 'grab' }}>
-        {/* Fallback image fades out once canvas is ready */}
+        {/* Fallback image — stays until the 3D scene fires its first frame */}
         <div
-          className="absolute inset-0 flex items-end justify-center transition-opacity duration-700 pointer-events-none"
-          style={{ opacity: loaded ? 0 : 1 }}
+          className="absolute inset-0 flex items-end justify-center pointer-events-none"
+          style={{
+            opacity: loaded ? 0 : 1,
+            transition: loaded ? 'opacity 0.8s ease' : 'none',
+          }}
         >
           {fallback}
         </div>
@@ -181,17 +191,14 @@ export default function CakeModel3D({ fallback }: { fallback: ReactNode }) {
         <Canvas
           camera={{ position: [0, 0.05, 5.5], fov: 32 }}
           style={{ width: '100%', height: '100%', background: 'transparent', cursor: 'inherit' }}
-          onCreated={({ gl }) => {
-            gl.setClearColor(0x000000, 0);
-            setTimeout(() => setLoaded(true), 600);
-          }}
+          onCreated={({ gl }) => { gl.setClearColor(0x000000, 0); }}
           gl={{ alpha: true, antialias: true }}
         >
           <ambientLight intensity={0.6} />
           <directionalLight position={[3, 5, 3]} intensity={1.2} />
           <directionalLight position={[-3, 2, -2]} intensity={0.4} />
           <Suspense fallback={null}>
-            <CakeScene interaction={interaction} />
+            <CakeScene interaction={interaction} onReady={() => setLoaded(true)} />
             <Environment preset="city" />
             <ContactShadows position={[0, -0.72, 0]} opacity={0.3} scale={2.5} blur={2} far={1.2} />
           </Suspense>

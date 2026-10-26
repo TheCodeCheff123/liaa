@@ -1,15 +1,26 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { CartProvider, SOCIAL_LINKS } from './context/CartContext';
 import Header from './components/layout/Header';
 import HeroSection from './components/sections/HeroSection';
-import MenuSection from './components/sections/MenuSection';
-import HowToOrderSection from './components/sections/HowToOrderSection';
-import AboutSection from './components/sections/AboutSection';
-import GallerySection from './components/sections/GallerySection';
-import ContactSection from './components/sections/ContactSection';
 import Footer from './components/layout/Footer';
 import CartDrawer from './components/cart/CartDrawer';
 import CheckoutModal from './components/cart/CheckoutModal';
+
+// ── Lazy-load below-fold sections ──────────────────────────────────────────────
+const MenuSection        = lazy(() => import('./components/sections/MenuSection'));
+const HowToOrderSection  = lazy(() => import('./components/sections/HowToOrderSection'));
+const AboutSection       = lazy(() => import('./components/sections/AboutSection'));
+const GallerySection     = lazy(() => import('./components/sections/GallerySection'));
+const ContactSection     = lazy(() => import('./components/sections/ContactSection'));
+
+// Simple skeleton shimmer used as Suspense fallback
+function SectionSkeleton() {
+  return (
+    <div className="w-full py-20 flex items-center justify-center" aria-hidden="true">
+      <div className="w-12 h-12 rounded-full border-4 border-[#F5A623] border-t-transparent animate-spin" />
+    </div>
+  );
+}
 
 export default function App() {
   const [showTop, setShowTop] = useState(false);
@@ -26,11 +37,21 @@ export default function App() {
         <Header />
         <main>
           <HeroSection />
-          <MenuSection />
-          <HowToOrderSection />
-          <AboutSection />
-          <GallerySection />
-          <ContactSection />
+          <Suspense fallback={<SectionSkeleton />}>
+            <MenuSection />
+          </Suspense>
+          <Suspense fallback={<SectionSkeleton />}>
+            <HowToOrderSection />
+          </Suspense>
+          <Suspense fallback={<SectionSkeleton />}>
+            <AboutSection />
+          </Suspense>
+          <Suspense fallback={<SectionSkeleton />}>
+            <GallerySection />
+          </Suspense>
+          <Suspense fallback={<SectionSkeleton />}>
+            <ContactSection />
+          </Suspense>
         </main>
         <Footer />
         {/* Global overlays */}
