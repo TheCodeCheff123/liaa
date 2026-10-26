@@ -35,6 +35,8 @@ export default function App() {
     <CartProvider>
       <div className="min-h-screen bg-white font-sans">
         <Header />
+        {/* Spacer that matches the fixed header height (announcement bar ~32px + nav 80px) */}
+        <div className="h-[112px]" aria-hidden="true" />
         <main>
           <HeroSection />
           <Suspense fallback={<SectionSkeleton />}>

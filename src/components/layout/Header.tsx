@@ -26,6 +26,8 @@ export default function Header() {
 
   return (
     <>
+      {/* Fixed wrapper — keeps announcement bar + nav stuck to top on all devices */}
+      <div className="fixed top-0 left-0 right-0 z-40 backdrop-blur-md bg-white/80">
       {/* Top announcement bar */}
       <div className="bg-[#FCCEE8] text-[#3B1A0E] text-xs py-2 px-4 flex items-center justify-between">
         <span>Sales are ongoing. Place an order now! 🎂🎉 </span>
@@ -44,8 +46,8 @@ export default function Header() {
       </div>
 
       <header
-        className={`sticky top-0 z-30 transition-all duration-300 ${
-          scrolled ? 'bg-white shadow-md' : 'bg-white'
+        className={`transition-all duration-300 ${
+          scrolled ? 'shadow-md' : ''
         }`}
       >
         <div className="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between gap-6">
@@ -105,6 +107,7 @@ export default function Header() {
           </div>
         </div>
       </header>
+      </div>{/* end fixed wrapper */}
 
       <MobileNavDrawer isOpen={mobileOpen} onClose={() => setMobileOpen(false)} />
     </>
