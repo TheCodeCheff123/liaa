@@ -72,6 +72,13 @@ export default function ProductCard({ product, whatsappEnquiryLink }: ProductCar
             );
           })}
         </div>
+
+        {/* Description text — shown below variants when present (e.g. small chops, brownies, pastry box) */}
+        {product.description && (
+          <p className="text-[#3B1A0E]/70 text-sm text-center leading-snug mt-3">
+            {product.description}
+          </p>
+        )}
       </div>
 
       {/* Quick Order On WhatsApp — pinned to card bottom */}
